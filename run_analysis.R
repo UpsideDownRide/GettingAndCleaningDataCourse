@@ -66,7 +66,7 @@ colnames(dataset)<-gsub('\\.(.)(.*)\\.\\.','\\U\\1\\L\\2',
 colnames(dataset)<-gsub('^(t)','time',colnames(dataset),perl=TRUE)
 colnames(dataset)<-gsub('^(f)','frequency',colnames(dataset),perl=TRUE)
 
-## 4) Create average dataset and write both datasets
+## 4) Create average dataset 
 
 average_data<-aggregate(.~subject+activity,mean,data=dataset)
 
