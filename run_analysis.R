@@ -4,11 +4,11 @@ library(dplyr)
 
 ## 1) Download the data
 
-tmpf<-tempfile()
+datafile<-'getdata_projectfiles_UCI HAR Dataset.zip'
 tmpu<-'https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip'
-download.file(tmpu,tmpf)
-unzip(tmpf)
-filelist<-unzip(tmpf,list=TRUE)[,1]
+if(!file.exists(tmpu)) download.file(tmpu,datafile)
+unzip(datafile)
+filelist<-unzip(datafile,list=TRUE)[,1]
 
 ## 2) Read in the data
 
@@ -63,8 +63,9 @@ dataset<-cbind(subject_combined,y_combined,x_selected)
 colnames(dataset)<-gsub('\\.(.)(.*)\\.\\.','\\U\\1\\L\\2',
                         colnames(dataset),perl=TRUE)
 
-colnames(dataset)<-gsub('^(t)','time',colnames(dataset),perl=TRUE)
-colnames(dataset)<-gsub('^(f)','frequency',colnames(dataset),perl=TRUE)
+colnames(dataset)<-gsub('^t','time',colnames(dataset))
+colnames(dataset)<-gsub('^f','frequency',colnames(dataset))
+colnames(dataset)<-gsub('BodyBody','Body',colnames(dataset))
 
 ## 4) Create average dataset 
 
